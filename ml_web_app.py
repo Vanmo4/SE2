@@ -9,7 +9,6 @@ import os # - улучшение загрузки данных
 st.set_page_config(layout="wide", page_title="Демо райдшеринга в Нью-Йорке",
                    page_icon=":taxi:")
 
-
 # Загрузка исходных данных
 @st.experimental_singleton   # Функция декоратора для хранения одноэлементных объектов
 def load_data():
