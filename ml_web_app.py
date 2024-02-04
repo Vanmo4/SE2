@@ -13,7 +13,7 @@ st.set_page_config(layout="wide", page_title="Демо райдшеринга в
 # Загрузка исходных данных
 @st.experimental_singleton   # Функция декоратора для хранения одноэлементных объектов
 def load_data():
-    data_path = os.path.join(os.path.dirname(\\file\\), "uber-raw-data-sep14.csv.gz")
+    data_path = os.path.join(os.path.dirname(__file__), "uber-raw-data-sep14.csv.gz")
     data = pd.read_csv(
         data_path,
         nrows=100000,
