@@ -24,23 +24,6 @@ def load_data():
     )
     return data
 
-#def load_data():  # предназначенная для избежания повторного пересчета
-#    data = pd.read_csv(
-#        "uber-raw-data-sep14.csv.gz",
-#        nrows=100000,  # ограничение объема исходных данных 10 %
-#        names=[
-#            "date/time",
-#            "lat",
-#            "lon",
-#        ],
-#        skiprows=1,
-#        usecols=[0, 1, 2],  # исключаем из таблицы столбец с константой "B02512"
-#        parse_dates=[
-#            "date/time"
-#        ],  # set as datetime instead of converting after the fact
-#    )
-#    return data
-
 
 def map(data, lat, lon, zoom):  # Задание функции для определения областей на карте.
     st.write(
@@ -75,11 +58,8 @@ def filter_by_data(df, hour_selected):
 
 
 # Вычисление средней величины для полученного набора данных
-#@st.experimental_memo
-#def mpoint(lat, lon):
-#    return (np.average(lat), np.average(lon))
 @st.experimental_memo
-def mpoint():
+def mpoint(x, y):
     return (np.average(data["lat"]), np.average(data["lon"]))
 
 # Фильтрация данных по часам
