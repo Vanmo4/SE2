@@ -75,10 +75,12 @@ def filter_by_data(df, hour_selected):
 
 
 # Вычисление средней величины для полученного набора данных
+#@st.experimental_memo
+#def mpoint(lat, lon):
+#    return (np.average(lat), np.average(lon))
 @st.experimental_memo
-def mpoint(lat, lon):
-    return (np.average(lat), np.average(lon))
-
+def mpoint():
+    return (np.average(data["lat"]), np.average(data["lon"]))
 
 # Фильтрация данных по часам
 @st.experimental_memo
