@@ -3,6 +3,7 @@ import numpy as np  # - для математических и числовых 
 import pandas as pd  # - для обработки и анализа данных
 import pydeck as pdk  # - для создания визулизации данных
 import streamlit as st  # - фреймворк для развертывания моделей и визуализаций
+import os # - улучшение загрузки данных
 
 # Задание широкоформатного режима страницы и указание заголовка
 st.set_page_config(layout="wide", page_title="Демо райдшеринга в Нью-Йорке",
@@ -11,22 +12,34 @@ st.set_page_config(layout="wide", page_title="Демо райдшеринга в
 
 # Загрузка исходных данных
 @st.experimental_singleton   # Функция декоратора для хранения одноэлементных объектов
-def load_data():  # предназначенная для избежания повторного пересчета
+def load_data():
+    data_path = os.path.join(os.path.dirname(\\file\\), "uber-raw-data-sep14.csv.gz")
     data = pd.read_csv(
-        "uber-raw-data-sep14.csv.gz",
-        nrows=100000,  # ограничение объема исходных данных 10 %
-        names=[
-            "date/time",
-            "lat",
-            "lon",
-        ],
+        data_path,
+        nrows=100000,
+        names=["date/time", "lat", "lon"],
         skiprows=1,
-        usecols=[0, 1, 2],  # исключаем из таблицы столбец с константой "B02512"
-        parse_dates=[
-            "date/time"
-        ],  # set as datetime instead of converting after the fact
+        usecols=[0, 1, 2],
+        parse_dates=["date/time"],
     )
     return data
+
+#def load_data():  # предназначенная для избежания повторного пересчета
+#    data = pd.read_csv(
+#        "uber-raw-data-sep14.csv.gz",
+#        nrows=100000,  # ограничение объема исходных данных 10 %
+#        names=[
+#            "date/time",
+#            "lat",
+#            "lon",
+#        ],
+#        skiprows=1,
+#        usecols=[0, 1, 2],  # исключаем из таблицы столбец с константой "B02512"
+#        parse_dates=[
+#            "date/time"
+#        ],  # set as datetime instead of converting after the fact
+#    )
+#    return data
 
 
 def map(data, lat, lon, zoom):  # Задание функции для определения областей на карте.
